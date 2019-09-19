@@ -32,12 +32,6 @@ function SignUp({ errors, touched, status }){
 
 			<button type="submit"> Create </button>
 
-			{users.map((user, index)=>(
-				<div key={index}>
-					first: {user.firstname}
-				</div>
-			))}
-
 		</Form>
 		)
 }
@@ -56,15 +50,29 @@ export default withFormik({
 		}
 	},
 	validationSchema : yup.object().shape({
-		firstname: yup.string().required('Please enter your first name'),
-		lastname: yup.string().required('Please enter your last name'),
-		email: yup.string().required('Please enter in your email'),
-		password: yup.string().required('Please enter in a password'),
-		passwordverify: yup.string().required('Password entered does not match'),
+		firstname: yup
+			.string()
+			.required('Please enter your first name'),
+		lastname: yup
+			.string()
+			.required('Please enter your last name'),
+		email: yup
+			.string()
+			.required('Please enter in your email'),
+		password: yup
+			.string()
+			.required('Please enter in a password'),
+		passwordverify: yup
+			.string()
+			.required('Password entered does not match')
+			.test("passwords-match", "Passwords must match", function(value){
+				return this.parent.password === value;
+			}),
 	}),
 	handleSubmit: (values, { setStatus }) => {
 		axios.post('https://reqres.in/api/users', values)
 			.then((resp)=>{
+				console.log(resp.data)
 				setStatus(resp.data)
 			})
 			.catch((err)=> console.log(err))
