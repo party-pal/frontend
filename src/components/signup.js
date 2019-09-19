@@ -61,7 +61,9 @@ export default withFormik({
 			.required('Please enter in your email'),
 		password: yup
 			.string()
-			.required('Please enter in a password'),
+			.required('Please enter in a password')
+			.min(8, "Password must be a minimum of 8 characters")
+			.max(13, "Password is too long, please try a shorter one"),
 		passwordverify: yup
 			.string()
 			.required('Password entered does not match')
