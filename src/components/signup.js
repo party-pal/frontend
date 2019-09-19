@@ -3,7 +3,7 @@ import { withFormik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 
-function SignUp({ erros, touched, status }){
+function SignUp({ errors, touched, status }){
 	const [users, setUsers] = useState([])
 
 	useEffect(() => {
@@ -14,13 +14,23 @@ function SignUp({ erros, touched, status }){
 
 	return (
 		<Form>
-			<h1> Sign Up! </h1>
+			<h1> Create an Account </h1>
+			{ touched.firstname && errors.firstname && <p className="error">{errors.firstname}</p> }
 			<Field type="text" name="firstname" placeholder="First" /> <br/>
+
+			{ touched.lastname && errors.lastname && <p className="error">{errors.lastname}</p> }
 			<Field type="text" name="lastname" placeholder="Last" /> <br/>
+
+			{ touched.email && errors.email && <p className="error">{errors.email}</p> }
 			<Field type="email" name="email" placeholder="Email" /> <br/>
+
+			{ touched.password && errors.password && <p className="error">{errors.password}</p> }
 			<Field type="password" name="password" placeholder="Password" /> <br/>
+
+			{ touched.passwordverify && errors.passwordverify && <p className="error">{errors.passwordverify}</p> }
 			<Field type="password" name="passwordverify" placeholder="Verify Password" /> <br/>
-			<button type="submit"> Submit </button>
+
+			<button type="submit"> Create </button>
 
 			{users.map((user, index)=>(
 				<div key={index}>
