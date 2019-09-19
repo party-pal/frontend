@@ -1,17 +1,13 @@
 import React from 'react';
 import './App.css';
-import { withFormik } from 'formik';
-import Login from './components/login'
+import SignUp from './components/signup'
 
 function App() {
   return (
     <div className="App">
-        <Login />
+        <SignUp />
     </div>
   );
 }
 
-export default withFormik({
-  mapPropsToValues: () => {}
-})(App);
- 
+export default App;
