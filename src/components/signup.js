@@ -71,10 +71,11 @@ export default withFormik({
 				return this.parent.password === value;
 			}),
 	}),
-	handleSubmit: (values, { setStatus }) => {
-		axios.post('https://reqres.in/api/users', values)
+	handleSubmit: ({firstname, lastname, emailaddress, password}, { setStatus }) => {
+		console.log()
+		axios.post('https://party-pal.herokuapp.com/api/auth/register', {firstname, lastname, emailaddress, password})
 			.then((resp)=>{
-				console.log(resp.data)
+				console.log(resp)
 				setStatus(resp.data)
 			})
 			.catch((err)=> console.log(err))
