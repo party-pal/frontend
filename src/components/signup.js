@@ -21,8 +21,8 @@ function SignUp({ errors, touched, status }){
 			{ touched.lastname && errors.lastname && <p className="error">{errors.lastname}</p> }
 			<Field type="text" name="lastname" placeholder="Last" /> <br/>
 
-			{ touched.email && errors.email && <p className="error">{errors.email}</p> }
-			<Field type="email" name="email" placeholder="Email" /> <br/>
+			{ touched.emailaddress && errors.emailaddress && <p className="error">{errors.emailaddress}</p> }
+			<Field type="email" name="emailaddress" placeholder="Email" /> <br/>
 
 			{ touched.password && errors.password && <p className="error">{errors.password}</p> }
 			<Field type="password" name="password" placeholder="Password" /> <br/>
@@ -44,7 +44,7 @@ export default withFormik({
 		return {
 			firstname: values.firstname || '',
 			lastname: values.lastname || '',
-			email: values.email || '',
+			emailaddress: values.email || '',
 			password: values.password || '',
 			passwordverify: values.passwordverify || ''
 		}
@@ -56,7 +56,7 @@ export default withFormik({
 		lastname: yup
 			.string()
 			.required('Please enter your last name'),
-		email: yup
+		emailaddress: yup
 			.string()
 			.required('Please enter in your email'),
 		password: yup
