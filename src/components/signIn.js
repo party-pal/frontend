@@ -33,11 +33,11 @@ export default withFormik({
 			.min(8, "Password must be a minimum of 8 characters")
 			.max(13, "Password is too long, please try a shorter one")
 	}),
-	handleSubmit: (values, { setStatus }) => {
-		axios.post('https://party-pal.herokuapp.com/api/auth/login', values)
+	handleSubmit: ({emailaddress, password}, { setStatus }) => {
+		axios.post('https://party-pal.herokuapp.com/api/auth/login', {emailaddress, password})
 			.then((resp)=>{
-				console.log(resp.data)
-				setStatus(resp.data)
+				console.log(resp)
+				setStatus(resp.data.token)
 			})
 			.catch((err)=> console.log(err))
 	}
