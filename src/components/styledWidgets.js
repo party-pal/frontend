@@ -11,7 +11,7 @@ export const Container =styled.div`
     
 `;
 
-export const SignInput =styled.form`
+export const SignInput =styled.div`
     // border:1px solid gray;
     // margin-left:20px;
     margin:10%;
@@ -32,7 +32,8 @@ export const Button=styled.button`
     font-weight:bold;
     font-size: 15px;
     color:#3f4142;
-    margin-top:20px;
+    margin-top:10px;
+    margin-bottom:10px;
 `;
 
 

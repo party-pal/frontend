@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import {Container, SignInput, Image, Button} from "./styledWidgets";
 import image from "../images/banquet.jpg"
+import {Link} from "react-router-dom"
 
 function SignUp({ errors, touched, status }){
 	const [users, setUsers] = useState([])
@@ -36,7 +37,9 @@ function SignUp({ errors, touched, status }){
 			
 			<Field type="password" name="passwordverify" placeholder="Verify Password" /> <br/>
 			{ touched.passwordverify && errors.passwordverify && <p className="error">{errors.passwordverify}</p>}
-			<Button type="submit"> Create </Button>
+			<Button type="submit"> Create </Button> <br/>
+			<Link to="/">Sign-In</Link>
+			
 			</Form>
         </SignInput>
 		</Container>
