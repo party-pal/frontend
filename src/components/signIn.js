@@ -1,12 +1,13 @@
 import React from "react";
 import {withFormik, Form, Field} from "formik"
 import * as yup from "yup"
-import axios from "axios"
+// import axios from "axios"
 import {Container, SignInput, Button, Image} from "./styledWidgets";
 import image from "../images/banquet.jpg"
 import {Link} from "react-router-dom"
+import {axiosWithAuth} from "../utils/axiosWithAuth"
 
-function SignIn(){
+function SignIn(props){
 
     return(
 		<Container>
@@ -16,8 +17,8 @@ function SignIn(){
 		   <SignInput>
 		   <Form>
 		   <h4>Log in to you accout</h4>
-           <Field type="text" name="emailaddress" placeholder="Email"/> <br/>
-           <Field type="password" name="password" placeholder="Password"/> <br/>
+           <Field type="text" name="emailaddress" placeholder="Email"/> <br/><br/>
+           <Field type="password" name="password" placeholder="Password"/> <br/><br/>
            <Button type="submit">Log In</Button>
 		   <p>not a member yet? </p>
 		   <Link to="/signup">Sign-Up</Link>
@@ -48,10 +49,11 @@ export default withFormik({
 			.max(13, "Password is too long, please try a shorter one")
 	}),
 	handleSubmit: (values, { setStatus }) => {
-		axios.post('https://party-pal.herokuapp.com/api/auth/login', values)
+		axiosWithAuth().post('/login', values)
 			.then((resp)=>{
-				console.log(resp.data)
-				setStatus(resp.data)
+				console.log(resp)
+				localStorage.setItem('token', resp.data.token);
+				values.props.history.push('/home')
 			})
 			.catch((err)=> console.log(err))
 	}

@@ -8,14 +8,15 @@ export const Container =styled.div`
     margin: 30px 15%;
     box-sizing: border-box;
     display:flex;
+    border-radius:5px;
     
 `;
 
 export const SignInput =styled.div`
     // border:1px solid gray;
     // margin-left:20px;
-    margin:10%;
-    // padding-top:10%;
+    margin:4% 10%;
+    // padding-top:50px;
     height:400px;   
     width:40%;
     display:flex;
@@ -42,3 +43,21 @@ export const Image = styled.img`
     width:40%;
 
 `;
+
+export const P =styled.p`
+    font-size:10px;
+    color:red;
+    padding-top:0px;
+`;
+
+export const Div =styled.div`
+    height:60px;
+    // border:1px solid black;
+    align-items:flex-end;
+    
+`;
+
+export const Input = styled.input`
+    width:200px;    
+    height:15px;
+`
