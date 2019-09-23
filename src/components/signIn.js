@@ -2,16 +2,30 @@ import React from "react";
 import {withFormik, Form, Field} from "formik"
 import * as yup from "yup"
 import axios from "axios"
-
+import {Container, SignInput, Button, Image} from "./styledWidgets";
+import image from "../images/banquet.jpg"
+import {Link} from "react-router-dom"
 
 function SignIn(){
 
     return(
-        <Form>
-           <Field type="text" name="emailaddress" placeholder="Email"/>
-           <Field type="password" name="password" placeholder="Password"/>
-           <button type="submit">Log In</button>
-        </Form>
+		<Container>
+			
+			<Image src={image}></Image>
+			
+		   <SignInput>
+		   <Form>
+		   <h4>Log in to you accout</h4>
+           <Field type="text" name="emailaddress" placeholder="Email"/> <br/>
+           <Field type="password" name="password" placeholder="Password"/> <br/>
+           <Button type="submit">Log In</Button>
+		   <p>not a member yet? </p>
+		   <Link to="/signup">Sign-Up</Link>
+		   </Form>
+        </SignInput>
+		
+		</Container>
+        
     )
 }
 
