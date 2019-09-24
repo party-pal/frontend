@@ -6,16 +6,15 @@ import Home from "./home"
 
 
 
+
 export default function AppRouter() {
 
     return <div>
     
         <Switch>
-            <Route exact path='/' render={(props)=>(<LoginPage {...props}/>)} />
-            <Route path='/signup' render={(props)=>(<SignUp {...props}/>)} />
+            <Route exact path='/' component={LoginPage} />
+            <Route path='/signup' component={SignUp} />
             <Route path="/home" component={Home}/>
-        
-        
         </Switch>
         
     </div>

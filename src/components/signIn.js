@@ -6,6 +6,7 @@ import {Container, SignInput, Button, Image} from "./styledWidgets";
 import image from "../images/banquet.jpg"
 import {Link} from "react-router-dom"
 import {axiosWithAuth} from "../utils/axiosWithAuth"
+import history from "../utils/history"
 
 function SignIn(props){
 
@@ -31,10 +32,11 @@ function SignIn(props){
 }
 
 export default withFormik({
-	mapPropsToValues: (values) => {
+	mapPropsToValues: (props) => {
 		return {
-			emailaddress: values.email || '',
-			password: values.password || ''
+			emailaddress: props.email || '',
+			password: props.password || '',
+			history:props.history
 		}
 	},
 	validationSchema : yup.object().shape({
@@ -49,11 +51,13 @@ export default withFormik({
 			.max(13, "Password is too long, please try a shorter one")
 	}),
 	handleSubmit: (values, { setStatus }) => {
-		axiosWithAuth().post('/login', values)
+		console.log(values)
+		axiosWithAuth().post('/auth/login', values)
+
 			.then((resp)=>{
-				console.log(resp)
+				// console.log(resp)
 				localStorage.setItem('token', resp.data.token);
-				values.props.history.push('/home')
+				history.push('/home')
 			})
 			.catch((err)=> console.log(err))
 	}
