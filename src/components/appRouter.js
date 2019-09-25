@@ -13,7 +13,7 @@ export default function AppRouter() {
             <Route exact path='/' component={LoginPage} />
             <Route exact path='/signup' component={SignUp} />
             <Route exact path='/parties' component={PartyList} />
-            <Route path='/tasks' component={Tasks} />
+            <Route path='/tasks/:id' component={Tasks} />
 
 
             

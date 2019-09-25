@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 
 
-function Tasks(){
+function Tasks({ match: {params: { id }} }){
 	const [tasks, setTasks] = useState([])
 
 	// useEffect to post each item into the DB 
