@@ -1,8 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import LoginPage from "./login-Page";
-import SignUp from "./signup";
+import UserPage from "./userPage";
 import Home from "./home"
+import AddParty from "./addParty";
+import Tasks from './partyTasks';
 
 
 
@@ -10,13 +11,17 @@ import Home from "./home"
 export default function AppRouter() {
 
     return <div>
-    
-        <Switch>
-            <Route exact path='/' component={LoginPage} />
-            <Route path='/signup' component={SignUp} />
-            <Route path="/home" component={Home}/>
+   {/* <UserPage/> */}
+        <div>
+        <Switch>   
+            
+            <Route path="/parties/home" component={Home}/>
+            <Route path="/parties/addparty" component={AddParty}/>
+            <Route path='/parties/tasks' component={Tasks} />  
         </Switch>
         
+        </div>
+      
     </div>
   
   }

@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from "react";
 import { Form, Field, withFormik} from "formik";
 import * as yup from "yup";
-import axios from "axios";
+import axios from "../utils/axiosWithAuth"
 import ShowParty from "./showParty";
+import { Container } from "./styledWidgets";
 
 function AddParty({errors,touched,status}){
     const[addParty,setAddParty]=useState([])
@@ -15,6 +16,7 @@ function AddParty({errors,touched,status}){
 
     return(
         <div>
+        <Container>
             <h2>Add party</h2>
             <Form>
 
@@ -35,21 +37,23 @@ function AddParty({errors,touched,status}){
             <Field type="text" name="theme" placeholder="Theme of the Party"/>
             { touched.theme && errors.theme && <p className="error">{errors.theme}</p>}
             
-            {/* <h4>The Venue</h4>
+            <h4>The Venue</h4>
           
             <p>Cost</p>
             <Field type="number" name="Cost" placeholder="Cost of the Venue"/>
             {touched.Cost && errors.Cost && <p className="errors">{errors.Cost}</p>}
 
             <p>Location</p>
-            <Field type="text" name="Location" placeholder="Location of the Venue"/>
-            {touched.Location && errors.Location && <p className="errors">{errors.Location}</p>} */}
+            <Field type="location" name="Location" placeholder="Location of the Venue"/>
+            {touched.Location && errors.Location && <p className="errors">{errors.Location}</p>}
 
             <br/><br/><br/><button type="submit"> Create </button>
             </Form>
 
             
             {addParty.map(user=>(<ShowParty info={user} key={user.id}/>))}
+        </Container>
+            
             
 
         </div>
@@ -65,7 +69,8 @@ export default withFormik({
 			guestCount: values.guestCount || '',
             date: values.date || ''	,
             theme:values.theme ||''
-            // Cost:values.Cost || ''
+            // Cost:values.Cost || '',
+            // Location:values.Location
 
 		}
     },
@@ -81,25 +86,26 @@ export default withFormik({
             .required('Please enter the date of your party'),
         theme: yup
 			.string()
-            .required('Please enter the Theme of your party')
-        // Cost:yup
-        //     .number()
-        //     .required('Please enter the cost'),
-        //  Location:yup
-        //     .string()
-        //     .required('Please enter the location')
+            .required('Please enter the Theme of your party'),
+        Cost:yup
+            .number()
+            .required('Please enter the cost'),
+         Location:yup
+            .string()
+            .required('Please enter the location')
 		
     }),
     
-    handleSubmit: ({guestCount, date, partytitle , theme}, { setStatus }) => {
+    handleSubmit: (values, { setStatus }) => {
 		
-        axios.post(' https://reqres.in/api/users/', { guestCount, date, partytitle, theme})
+        axios().post('/parties', {...values, userid:1})
         
 			.then((resp)=>{
 				console.log(resp)
-				setStatus(resp.data)
+                setStatus(resp.data)
+                // history.push('/home')
 			})
-			.catch((err)=> console.log(err))
+			.catch((err)=> console.log(err.message))
 	}
 
 })(AddParty);

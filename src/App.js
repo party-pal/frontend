@@ -1,18 +1,22 @@
 import React from 'react';
 import './App.css';
 import AppRouter from "./components/appRouter";
-import AddParty from './components/addParty';
+import { Route } from 'react-router-dom';
+import LoginPage from "./components/login-Page";
+import SignUp from "./components/signup";
+import userPage from "./components/userPage";
 
-// import ShowParty from './components/showParty';
-// import ShoppingCart from "./components/shoppingCart";
 
 function App() {
   return (
     <div className="App">
-      {/* <AppRouter/>    */}
-      <AddParty/>
-      {/* <ShowParty/> */}
-      {/* <ShoppingCart/> */}
+    
+      <Route exact path='/' component={LoginPage} />
+      <Route path='/parties' component={userPage} />
+      <Route  exact path='/signup' component={SignUp} />
+    
+      <AppRouter/>
+     
     </div>
   );
 }

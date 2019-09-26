@@ -5,6 +5,7 @@ import axios from 'axios';
 import {Container, SignInput, Image, Button, P, Div} from "./styledWidgets";
 import image from "../images/banquet.jpg"
 import {Link} from "react-router-dom"
+import Home from "./home"
 
 function SignUp({ errors, touched, status }){
 	const [users, setUsers] = useState([])
@@ -55,6 +56,7 @@ function SignUp({ errors, touched, status }){
 			
 			</Form>
         </SignInput>
+		{users.map(user=>(<Home info={user} key={user.id}/>))}
 		</Container>
 
 
@@ -97,10 +99,10 @@ export default withFormik({
 			}),
 	}),
 	handleSubmit: ({firstname, lastname, emailaddress, password}, { setStatus }) => {
-		console.log()
+		
 		axios.post('https://party-pal.herokuapp.com/api/auth/register', {firstname, lastname, emailaddress, password})
 			.then((resp)=>{
-				console.log(resp)
+				// console.log(resp)
 				setStatus(resp.data)
 			})
 			.catch((err)=> console.log(err))
