@@ -50,14 +50,12 @@ img{
 }
 
 Form{
-  width: 45%;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+
 }
 
-ul{
-  width: 45%;
-  border: 1px solid black; 
-}
+
 
 .task-container {
   display: flex;
