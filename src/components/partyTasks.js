@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Item } from 'semantic-ui-react';
 import { withFormik, Form, Field } from 'formik';
@@ -6,17 +6,33 @@ import * as yup from 'yup';
 import axios from 'axios';
 
 
-function Tasks({ match: {params: { id }} }){
+function Tasks({status}){
 	const [tasks, setTasks] = useState([])
 
+	useEffect(() => {
+    	if (status){
+    		setTasks([...tasks, status])}
+  }, [status])
 	// useEffect to post each item into the DB 
 
 	return(
-		<Form>
-			<Field type='text' name='task' placeholder='Task' /><br/>
-			<Field type='number' name='cost' placeholder='$'/><br/>
-			<button> Add </button>
-		</Form>
+		<div className="task">
+			<h1> To Do Lit for XXXX party </h1>
+			<div className="task-container">
+				<Form >
+					<Field type='text' name='task' placeholder='Task' /><br/>
+					<Field type='number' name='cost' placeholder='$'/><br/>
+					<button> Add </button>
+				</Form>
+				<ul>
+					{tasks.map((item, index)=>{
+						return (
+							<li key={index}> {item} </li>
+							)
+					})}
+				</ul>
+			</div>
+		</div>
 		)
 }
 
@@ -35,12 +51,13 @@ export default withFormik({
 			.number()
 			.required('Please enter the cost'),
 	}),
-	handleSubmit: ({ task, cost }, { setStatus }) => {
-		console.log()
-		axios.post('https://reqres.in/api/users', {task, cost })
+	handleSubmit: (values, { setStatus }) => {
+
+
+		axios.post('https://reqres.in/api/users', values)
 			.then((resp)=>{
+				setStatus(resp)
 				console.log(resp)
-				setStatus(resp.data)
 			})
 			.catch((err)=> console.log(err))
 	}

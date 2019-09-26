@@ -48,3 +48,19 @@ img{
   display: flex;
   flex-direction: column;
 }
+
+Form{
+  width: 45%;
+  border: 1px solid black;
+}
+
+ul{
+  width: 45%;
+  border: 1px solid black; 
+}
+
+.task-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
