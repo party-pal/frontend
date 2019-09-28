@@ -9,7 +9,7 @@ function PartyList(){
 	const [parties, setParties] = useState([])
 
 	useEffect(() => {
-		axios.get("https://party-pal.herokuapp.com/api/parties", {'headers': {'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjUyLCJpYXQiOjE1NjkzNjk2NTF9.DIXMj5J1XstSykrtZEyZzU_QeWj2fIilbCBa6f4_wZE"}})
+		axios.get("https://party-pal.herokuapp.com/api/parties", {'headers': {'Authorization': "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjUzLCJpYXQiOjE1Njk2MzE2NDV9.ZTEI4-5lLDO0-5WVc40ihPAuGeTAZ5nUSrJ8o2PemH4"}})
 		.then((resp)=> console.log(resp))
 		.catch((err)=> console.log(err))
 	})
