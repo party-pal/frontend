@@ -6,7 +6,7 @@ import axios from "axios";
      return axios.create({
          baseURL:'https://party-pal.herokuapp.com/api',
          headers:{
-             Authorization:token
+             Authorization:'bearer '+token
          }
      })
  }

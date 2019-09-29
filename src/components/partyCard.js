@@ -5,7 +5,7 @@ import Tasks from './partyTasks';
 
 function PartyCard(){
 	return (
-		<Link to='/tasks/'>
+		<Link to='/Tasks'>
 			<Card className="party-card">
 				<img src="https://images.unsplash.com/photo-1485872299829-c673f5194813?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2054&q=80" alt="two women holding drinks" />
 				<Card.Content>
