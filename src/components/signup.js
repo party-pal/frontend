@@ -6,6 +6,7 @@ import {Container, SignInput, Image, Button, P, Div} from "./styledWidgets";
 import image from "../images/banquet.jpg"
 import {Link} from "react-router-dom"
 import Home from "./home"
+import history from "../utils/history"
 
 function SignUp({ errors, touched, status }){
 	const [users, setUsers] = useState([])
@@ -65,7 +66,6 @@ function SignUp({ errors, touched, status }){
 
 
 
-
 export default withFormik({
 	mapPropsToValues: (values) => {
 		return {
@@ -102,8 +102,9 @@ export default withFormik({
 		
 		axios.post('https://party-pal.herokuapp.com/api/auth/register', {firstname, lastname, emailaddress, password})
 			.then((resp)=>{
-				// console.log(resp)
+				console.log(resp)
 				setStatus(resp.data)
+				history.push("/")
 			})
 			.catch((err)=> console.log(err))
 	}

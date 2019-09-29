@@ -1,6 +1,8 @@
 import React from "react"
 import { Tab, Menu, Icon } from 'semantic-ui-react'
 import { NavLink } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {Buttonb,Diva} from "./styledWidgets";
 
 const Nav = props => (
 	<NavLink
@@ -17,11 +19,15 @@ const AddParty = createLabel("add square", " Add Party ")
 const Tasks = createLabel("tasks", "Tasks")
 
 const panes = [
-	{ menuItem: <Menu.Item key='home' as={Nav} to={`/parties/home`} content={HOME} /> },
+	{ menuItem: <Menu.Item key='home' as={Nav} to={`/parties/home/`} content={HOME} /> },
 	{ menuItem: <Menu.Item key='characters' as={Nav} to={`/parties/addparty`} content={AddParty} /> },
 	{ menuItem: <Menu.Item key='location' as={Nav} to={`/parties/tasks`} content={Tasks} /> }
 	
 ]
 
-const UserPage =()=> <Tab panes={panes} renderActiveOnly={false} />
+const UserPage =()=> <Diva>
+	<Buttonb as={Link} to= "/">Logout</Buttonb>
+	<Tab panes={panes} renderActiveOnly={false} />
+	
+	</Diva>
 export default UserPage;

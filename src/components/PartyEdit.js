@@ -22,7 +22,7 @@ export default function ButtonSizes() {
 
   return (
     <div>
-<Link to="/addparty">
+<Link to="/parties/addparty">
 <Fab size="large"  aria-label="add" className={classes.margin}>
           <AddIcon />
         </Fab>

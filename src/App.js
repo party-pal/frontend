@@ -10,11 +10,11 @@ import userPage from "./components/userPage";
 function App() {
   return (
     <div className="App">
+      <h1>Party planner</h1>
     
       <Route exact path='/' component={LoginPage} />
       <Route path='/parties' component={userPage} />
       <Route  exact path='/signup' component={SignUp} />
-    
       <AppRouter/>
      
     </div>

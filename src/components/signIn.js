@@ -6,7 +6,7 @@ import image from "../images/banquet.jpg"
 import {Link} from "react-router-dom"
 import axios from "../utils/axiosWithAuth"
 import history from "../utils/history"
-// import Home from "./home"
+
 
 function SignIn(props){
 
@@ -33,7 +33,7 @@ function SignIn(props){
 
 export default withFormik({
 	mapPropsToValues: (props) => {
-		
+	console.log(props)	
 		return {
 			emailaddress: props.email || '',
 			password: props.password || '',
@@ -52,13 +52,13 @@ export default withFormik({
 			.max(13, "Password is too long, please try a shorter one")
 	}),
 	handleSubmit: (values, { setStatus }) => {
-		// console.log(values)
-		axios().post('https://party-pal.herokuapp.com/api/auth/login', values)
+		
+		axios().post('/auth/login', values)
 
 			.then((resp)=>{
-				// console.log(resp)
+				console.log(resp)
 				localStorage.setItem('token', resp.data.token);
-				history.push('/parties')
+				history.push('/parties/home')
 			})
 			.catch((err)=> console.log(err))
 	}

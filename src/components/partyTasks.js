@@ -4,7 +4,7 @@ import { Item } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import axios from 'axios'
-import{Container} from "./styledWidgets"
+import {Hiv, Section, Part,Button, P, Div} from "./styledWidgets";
 
 const Tasks = ({ errors, touched, status }) => {
   const [tasks, setTasks] = useState([])
@@ -15,45 +15,62 @@ const Tasks = ({ errors, touched, status }) => {
   }, [status])
 
   return (
-  	<div className='create-box'>
-      <Container>
-      <h1> To-Do List for XXXXXX Party </h1>
-	    <Form >
-		      { touched.task && errors.task && <p className="error">{errors.task}</p> }
-		      <Field type="text" name="task" placeholder="Task"  /> 
 
-		      { touched.cost && errors.cost && <p className="error">{errors.cost}</p> }
-		      <Field type="number" name="cost" placeholder="Cost: $"  />
+        <Part className='create-box'>
+        <Section>
+        <Form >
 
-		      { touched.category && errors.category && <p className="error">{errors.category}</p> }
-		      <Field component="select" name="category">
-		        <option value="" disabled> Select Category: </option>
-		        <option value="food"> Food </option>
-		        <option value="drinks"> Drinks </option>
-		        <option value="entertainment"> Entertainment </option>
-		      </Field>
+        <Div>
+          <p>Add Task</p>
+        <Field type="text" name="task" placeholder="Task"  /> 
+        { touched.task && errors.task && <P className="error">{errors.task}</P> }
+        </Div>
 
-		      <Field component="textarea" name="notes" placeholder="Notes" />
+        <Div>
+        <p>Add Cost</p>
+        <Field type="number" name="cost" placeholder="Cost: $"  />
+        { touched.cost && errors.cost && <P className="error">{errors.cost}</P> }
 
-		      <button type="submit">Submit</button>
-		      
-	    </Form>
+        </Div>
 
-	    <div className='task-list'>
-
-	      {tasks.map((item, index) => (
-	        <Item key={index}> 
-	        Item: {item.task} <br/>
-	        Cost: {item.cost}
-	        </Item>
-	        
-	        ))}
-      	</div>
-      </Container>
-  		
+        <Div>
+        <p>Select Category</p>
+        <Field component="select" name="category">
+          <option value="" disabled> Select Category: </option>
+          <option value="food"> Food </option>
+          <option value="drinks"> Drinks </option>
+          <option value="entertainment"> Entertainment </option>
+        </Field>
+        { touched.category && errors.category && <P className="error">{errors.category}</P> }
+        </Div><br/>
 
 
-    </div>
+        <p>Add Notes</p>
+        <Field component="textarea" name="notes" placeholder="Notes" />
+        { touched.notes && errors.notes && <P className="error">{errors.notes}</P> }<br/>
+
+        <Button type="submit">Submit</Button><br/>
+      
+        </Form>
+
+        <Hiv className='task-list'>
+          <h2>Task</h2>
+        {tasks.map((item, index) => (
+        <Item key={index}> 
+          <h3>Item  :-{ item.task}</h3>
+          <h3>Cost  : { item.cost}</h3> 
+          <h3>category: { item.category}</h3> 
+          <h3>notes: { item.notes}</h3> 
+        </Item>
+
+        ))}
+        </Hiv>
+
+        </Section>
+
+
+        </Part>
+   
   )
 }
 
@@ -69,11 +86,12 @@ export default withFormik({
   validationSchema: yup.object().shape({
     task: yup.string().required('task is required'),
     cost: yup.number().positive().required('cost is required'),
-    category: yup.string().required('category is required'),
+    category: yup.string().required('category is required')
   }),
   handleSubmit: (values, { setStatus }) => {
     axios.post('https://reqres.in/api/tasks', values)
       .then((resp) => {
+        console.log(resp)
         setStatus(resp.data)
       })
       .catch(err => console.log(err))

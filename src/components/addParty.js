@@ -2,62 +2,54 @@ import React,{useState,useEffect} from "react";
 import { Form, Field, withFormik} from "formik";
 import * as yup from "yup";
 import axios from "../utils/axiosWithAuth"
-import ShowParty from "./showParty";
-import { Container } from "./styledWidgets";
+import {Button,Divs, Div,P } from "./styledWidgets";
+import history from "../utils/history"
 
 function AddParty({errors,touched,status}){
     const[addParty,setAddParty]=useState([])
 
     useEffect(()=>{
+        // console.log(status)
         if (status){
             setAddParty([...addParty,status])
         }
     },[status])
 
     return(
-        <div>
-        <Container>
-            <h2>Add party</h2>
-            <Form>
-
-            <p>Party Title</p>
-            <Field type="text" name="partytitle" placeholder="Title of the Party"/>
-            { touched.partytitle && errors.partytitle && <p className="error">{errors.partytitle}</p>}
+        <Divs>
 
 
-            <p>Number of guests</p>
-            <Field type="number" name="guestCount" placeholder="Number of guests"/>
-            { touched.guestCount && errors.guestCount && <p className="error">{errors.guestCount}</p>}
+        <Form>
+        <Div>
+        <p>Party Title</p>
+        <Field type="text" name="partytitle" placeholder="Title of the Party"/>
+        { touched.partytitle && errors.partytitle && <P className="error">{errors.partytitle}</P>}
+        </Div>
 
-            <p>Date of the Party</p>
-            <Field type="date" name="date" />
-            { touched.date && errors.date && <p className="error">{errors.date}</p>}
 
-            <p>Party Theme</p>
-            <Field type="text" name="theme" placeholder="Theme of the Party"/>
-            { touched.theme && errors.theme && <p className="error">{errors.theme}</p>}
-            
-            <h4>The Venue</h4>
-          
-            <p>Cost</p>
-            <Field type="number" name="Cost" placeholder="Cost of the Venue"/>
-            {touched.Cost && errors.Cost && <p className="errors">{errors.Cost}</p>}
+        <Div>
+        <p>Number of guests</p>
+        <Field type="number" name="guestCount" placeholder="Number of guests"/>
+        { touched.guestCount && errors.guestCount && <p className="error">{errors.guestCount}</p>}
+        </Div>
 
-            <p>Location</p>
-            <Field type="location" name="Location" placeholder="Location of the Venue"/>
-            {touched.Location && errors.Location && <p className="errors">{errors.Location}</p>}
+        <Div>
+        <p>Date of the Party</p>
+        <Field type="date" name="date" />
+        { touched.date && errors.date && <p className="error">{errors.date}</p>}
+        </Div>
 
-            <br/><br/><br/><button type="submit"> Create </button>
-            </Form>
+        <Div>
+        <p>Party Theme</p>
+        <Field type="text" name="theme" placeholder="Theme of the Party"/>
+        { touched.theme && errors.theme && <p className="error">{errors.theme}</p>}
+        </Div>
 
-            
-            {addParty.map(user=>(<ShowParty info={user} key={user.id}/>))}
-        </Container>
-            
-            
+        <br/><br/><Button type="submit"> Create </Button>
+        </Form>
 
-        </div>
-       
+        </Divs>
+
        
     )
 }
@@ -68,10 +60,8 @@ export default withFormik({
             partytitle:values.partytitle || '',
 			guestCount: values.guestCount || '',
             date: values.date || ''	,
-            theme:values.theme ||''
-            // Cost:values.Cost || '',
-            // Location:values.Location
-
+            theme:values.theme ||'',
+           
 		}
     },
     validationSchema : yup.object().shape({
@@ -87,25 +77,19 @@ export default withFormik({
         theme: yup
 			.string()
             .required('Please enter the Theme of your party'),
-        Cost:yup
-            .number()
-            .required('Please enter the cost'),
-         Location:yup
-            .string()
-            .required('Please enter the location')
-		
+            
     }),
     
     handleSubmit: (values, { setStatus }) => {
 		
-        axios().post('/parties', {...values, userid:1})
+        axios().post('/parties', {...values})
         
 			.then((resp)=>{
-				console.log(resp)
-                setStatus(resp.data)
-                // history.push('/home')
+                console.log(resp)
+                setStatus(resp)
+                history.push('/parties/home')
 			})
-			.catch((err)=> console.log(err.message))
+			.catch((err)=> console.log(err))
 	}
 
 })(AddParty);
