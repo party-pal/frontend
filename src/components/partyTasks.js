@@ -4,6 +4,7 @@ import { Item } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import axios from 'axios'
+import { Container } from './styledWidgets'
 
 const Tasks = ({ errors, touched, status }) => {
   const [tasks, setTasks] = useState([])
@@ -14,6 +15,7 @@ const Tasks = ({ errors, touched, status }) => {
   }, [status])
 
   return (
+    <Container>
   	<div className='create-box'>
   		<h1> To-Do List for XXXXXX Party </h1>
 	    <Form >
@@ -50,6 +52,7 @@ const Tasks = ({ errors, touched, status }) => {
 
 
     </div>
+    </Container>
   )
 }
 
