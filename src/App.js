@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
-import SignUp from './components/signup'
+import AppRouter from "./components/appRouter";
+import Nav from './components/header'
 
 function App() {
   return (
     <div className="App">
-        <SignUp />
+      <Nav />
+      <AppRouter/>
+
+        {/* <SignUp /> */}     
     </div>
   );
 }

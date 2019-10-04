@@ -1,7 +1,10 @@
 import React, { useState, useEffect }  from 'react';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik,Form, Field } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
+import {Container, SignInput, Image, Button} from "./styledWidgets";
+import image from "../images/banquet.jpg"
+import {Link} from "react-router-dom"
 
 function SignUp({ errors, touched, status }){
 	const [users, setUsers] = useState([])
@@ -13,26 +16,35 @@ function SignUp({ errors, touched, status }){
 	}, [status])
 
 	return (
-		<Form>
-			<h1> Create an Account </h1>
-			{ touched.firstname && errors.firstname && <p className="error">{errors.firstname}</p> }
+
+		<Container>
+			<Image src={image}></Image>
+		   <SignInput>
+		   <Form>
+		   <h4> Create an Account </h4>
+			
 			<Field type="text" name="firstname" placeholder="First" /> <br/>
-
-			{ touched.lastname && errors.lastname && <p className="error">{errors.lastname}</p> }
+			{ touched.firstname && errors.firstname && <p className="error">{errors.firstname}</p>}
+			
 			<Field type="text" name="lastname" placeholder="Last" /> <br/>
-
-			{ touched.emailaddress && errors.emailaddress && <p className="error">{errors.emailaddress}</p> }
+			{ touched.lastname && errors.lastname && <p className="error">{errors.lastname}</p>}
+			
 			<Field type="email" name="emailaddress" placeholder="Email" /> <br/>
-
-			{ touched.password && errors.password && <p className="error">{errors.password}</p> }
+			{ touched.emailaddress && errors.emailaddress && <p className="error">{errors.emailaddress}</p>}
+			
 			<Field type="password" name="password" placeholder="Password" /> <br/>
-
-			{ touched.passwordverify && errors.passwordverify && <p className="error">{errors.passwordverify}</p> }
+			{ touched.password && errors.password && <p className="error">{errors.password}</p>}
+			
 			<Field type="password" name="passwordverify" placeholder="Verify Password" /> <br/>
+			{ touched.passwordverify && errors.passwordverify && <p className="error">{errors.passwordverify}</p>}
+			<Button type="submit"> Create </Button> <br/>
+			<Link to="/">Sign-In</Link>
+			
+			</Form>
+        </SignInput>
+		</Container>
 
-			<button type="submit"> Create </button>
 
-		</Form>
 		)
 }
 
@@ -71,10 +83,11 @@ export default withFormik({
 				return this.parent.password === value;
 			}),
 	}),
-	handleSubmit: (values, { setStatus }) => {
-		axios.post('https://reqres.in/api/users', values)
+	handleSubmit: ({firstname, lastname, emailaddress, password}, { setStatus }) => {
+		console.log()
+		axios.post('https://party-pal.herokuapp.com/api/auth/register', {firstname, lastname, emailaddress, password})
 			.then((resp)=>{
-				console.log(resp.data)
+				console.log(resp)
 				setStatus(resp.data)
 			})
 			.catch((err)=> console.log(err))
